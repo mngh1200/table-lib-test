@@ -17,10 +17,10 @@ module.exports = [
   },
   {
     entry: {
-      anyname: "./src/sass/style.scss", // トランスパイル対象
+      style: "./src/sass/style.scss", // トランスパイル対象
     },
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'dist')
     },
     module: {
       rules: [
@@ -36,7 +36,7 @@ module.exports = [
     },
     plugins:[
       // cssの出力先を指定する
-      new MiniCssExtractPlugin({ filename: 'style/[name].css' }),
+      new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
     ],
     optimization: {
       minimizer: [new OptimizeCSSAssetsPlugin({})],
