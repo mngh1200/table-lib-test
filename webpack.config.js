@@ -17,11 +17,10 @@ module.exports = [
   },
   {
     entry: {
-      anyname: __dirname + "/src/sass/style.scss", // トランスパイル対象
+      anyname: "./src/sass/style.scss", // トランスパイル対象
     },
     output: {
-      path: path.join(__dirname, './dist/css'),
-      filename: '[name].css'
+      path: path.resolve(__dirname, 'dist'),
     },
     module: {
       rules: [
