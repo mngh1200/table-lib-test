@@ -1,5 +1,30 @@
 # 開発ルール
 
+## 開発環境構築
+
+#### 構築手順
+1. webpackのインストール
+```
+$ npm i -g webpack webpack-cli webpack-dev-server
+```
+
+2. プロジェクトフォルダをカレントディレクトリに指定
+
+3. 必要モジュールをインストール
+```
+npm install
+```
+
+4. デバッグ
+```
+npm run dev
+```
+
+5. ビルド
+```
+npm run build
+```
+
 ## ブランチ使用ルール
 
 #### 使用手順
