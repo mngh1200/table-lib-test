@@ -1,1 +1,3 @@
-document.write('<h1>Hello World</h1>');
+const sub = require('./sub.js');
+
+sub.run('hello, world!');
