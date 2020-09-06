@@ -1,7 +1,7 @@
 # Javascriptコーディング規約
 
 ## 変数
-- varを使用する。
+- 変数宣言にはvarを使用する。
 - グローバル変数は禁止とする。
 
 ## 定数
@@ -12,8 +12,8 @@
 /**
  * 定数です
  * @const
- * /
-CONSTANT_VALUE = 0;
+ */
+namespace.CONSTANT_VALUE = 0;
 ```
 
 ## セミコロン
@@ -40,7 +40,7 @@ CONSTANT_VALUE = 0;
 ## jQueryを使用する変数について
 jQueryの機能を使用する変数には
 ```
-$elentName
+$elementName
 ```
 のように$をつける。
 
@@ -80,13 +80,13 @@ while (a != 0) {
 ```
 - 波括弧（{}）の前後
 ```
-if (a = b) {
+if (a == b) {
   // ～
 } else {
   // ～
 }
 
-if (a = b) { c = d; }
+if (a == b) { c = d; }
 
 for (var a = 0; a < b; a++) {
   // ～
@@ -135,8 +135,22 @@ while ((a = b)) {
 // 次の記述は禁止です
 var a = [a, b, c, ];
 var obj = {
-  a: "a",
+  a: 'a',
   b: 1,
-  c: "c",
+  c: 'c',
 };
 ```
+- 複数行にわたる場合半角スペース2つのインデントとする
+```
+var a = b ?
+  longOperandTrueValue :
+  longOperandFalseValue;
+var c = foo.bar.
+  doLongName().
+  doLongerName();
+var d = '<html>' +
+  '<body></body>' +
+  '</html>';
+```
+## コメントアウト
+JSDocの形式で記述する。
