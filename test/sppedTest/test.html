@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./../../dist/css/style.css">
+<style>
+
+</style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="table-area">
+        <div class="list-table">
+          <ul class="list-table__head">
+            <li class="list-table__list list-table__list--head">
+              <script>
+                for (var i = 0; i < 10; i++) {
+                  document.writeln('<span class="list-table__cell list-table__cell--head">ヘッダー' + i + '</span>');
+                }
+              </script>
+            </li>
+
+          </ul>
+          <ul class="list-table__body">
+            <script>
+              for (var i = 0; i < 2000; i++) {
+                document.write('<li class="list-table__list">');
+                for (var j = 0; j < 10; j++) {
+                  document.write('<span class="list-table__cell">データ' + i + '-' + j + '</span>');
+                }
+              }
+            </script>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="./../../dist/bundle.js"></script>
+  </body>
+</html>
