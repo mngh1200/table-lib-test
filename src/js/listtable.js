@@ -45,10 +45,10 @@ listtable.sort.sortObject = function(data, sortkeys) {
     for (var i = 0; i < keylen; i++) {
       var sortkey = sortkeys[i];
       if (!(('order' in sortkey) && ('keyname' in sortkey))) continue;
-      if (sortkey.order === listtable.ORDER_ASC) {
+      if (sortkey.order === listtable.sort.ORDER_ASC) {
         if (a[sortkey.keyname] < b[sortkey.keyname]) return -1;
         if (a[sortkey.keyname] > b[sortkey.keyname]) return 1;
-      } else if(sortkey.order === listtable.ORDER_DESC) {
+      } else if(sortkey.order === listtable.sort.ORDER_DESC) {
         if (a[sortkey.keyname] > b[sortkey.keyname]) return -1;
         if (a[sortkey.keyname] < b[sortkey.keyname]) return 1;
       }
