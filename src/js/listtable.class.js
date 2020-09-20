@@ -69,6 +69,7 @@ listtable.class.ListTable = class {
         }
       }
     }
+    this.originData = this.data;
   }
   /**
    * JSONデータメンバをソートする。
@@ -83,14 +84,14 @@ listtable.class.ListTable = class {
     var keyArray = [];  // rowKeyと一致したキーの配列（rowKeyを削除して数値化したもの）
     var otherKeyArray = []; // rowKeyと一致しなかったキーと値を格納する配列
     // rowKeyチェック
-    if (rowKey == null) return this.data;
-    if (rowKey == '') return this.data;
-    if (typeof rowKey !== 'string') return this.data;
+    if (rowKey == null) return this.originData;
+    if (rowKey == '') return this.originData;
+    if (typeof rowKey !== 'string') return this.originData;
     // sortKeysのチェック
-    if(sortKeys == null) return this.data;
-    if(typeof sortKeys !== 'object') return this.data;
+    if(sortKeys == null) return this.originData;
+    if(typeof sortKeys !== 'object') return this.originData;
     // dataメンバのキーを取得
-    var keys = Object.keys(this.data);
+    var keys = Object.keys(this.originData);
     var keysLength = keys.length;
     // dataメンバのキーからソート対象と対象外を分ける
     for (var i = 0; i < keysLength; i++){
@@ -98,15 +99,15 @@ listtable.class.ListTable = class {
       // ソート対象ならキー配列とソート配列に格納
       if (key.indexOf(rowKey) == 0) {
         keyArray.push( Number( key.replace(rowKey, '') ) );
-        sortArray.push(this.data[key]);
+        sortArray.push(this.originData[key]);
       // ソート対象外なら対象外の配列に格納
       }else {
-        otherKeyArray.push({key: key, value: this.data[key]});
+        otherKeyArray.push({key: key, value: this.originData[key]});
       }
     }
     // ソート対象が1つもなければソートせず終了
     var keyArrayLength = keyArray.length;
-    if (keyArrayLength == 0) return this.data;
+    if (keyArrayLength == 0) return this.originData;
     // キー配列を数値昇順に並び替え
     keyArray.sort(function(a,b){
       if( a < b ) return -1;
