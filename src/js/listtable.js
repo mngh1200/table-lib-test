@@ -63,8 +63,8 @@ listtable.class.ListTable = function(id, settings) {
   this.$tbody = $table.children('ul').eq(1).addClass('list-table__body');
   this.$th = this.$thead.children('li').addClass('list-table__list list-table__list--head');
   this.$tr = this.$tbody.children('li').addClass('list-table__list');
-  this.$tdHead = this.$th.children('span').addClass('list-table__cell list-table__cell--head');
-  this.$td = this.$tr.children('span').addClass('list-table__cell');
+  this.$tdHead = this.$th.children('span');
+  this.$td = this.$tr.children('span');
 
   var colLen = this.$tdHead.length; // 列数
   var rowLen = this.$tr.length; // 行数
@@ -81,6 +81,7 @@ listtable.class.ListTable = function(id, settings) {
       });
     }
   }
+
   // データセット
   this.data = {};
   for (var i = 0; i < rowLen; i++) {
@@ -91,7 +92,8 @@ listtable.class.ListTable = function(id, settings) {
     $row.attr('data-listtable-id', id);
     // dataに各セルの情報セット
     var rowData = this.data[id];
-    var $cellArr = $row.children('.list-table__cell');
+    var $cellArr = $row.children('span');
+  
     for (var j = 0; j < colLen; j++) {
       var $cell = $cellArr.eq(j);
       var colSetting = this.settings.colSettings[j];
@@ -177,6 +179,12 @@ listtable.class.ListTable.prototype.sortTable = function(sortArray) {
     var rowId = sortArray[i];
     var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
 
-    this.$tbody.append($row);
+    if ($sortRows == null) {
+      $sortRows = $row;
+    } else if($row.length) {
+      var $sortRows = $sortRows.add($row);
+    }
   }
+
+  this.$tbody.prepend($sortRows);
 }
