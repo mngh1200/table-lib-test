@@ -8,6 +8,7 @@
   </head>
   <body>
     <div class="content">
+      <input type=button value="ソートテスト" onclick="listTable.sortTable(sortdata);"/>
       <div class="table-area">
         <div id="test-list-table">
           <ul>
@@ -53,7 +54,7 @@ var sortdata = listTable.sortData([{keyname: 'col1', order: listtable.const.ORDE
 console.timeEnd('get sort data');
 
 console.time('sort table');
-//listTable.sortTable(sortdata);
+// listTable.sortTable(sortdata);
 console.timeEnd('sort table');
 </script>
   </body>

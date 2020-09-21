@@ -175,12 +175,26 @@ listtable.class.ListTable.prototype.sortTable = function(sortArray) {
   var len = sortArray.length;
 
   // ソートする順番にjquery要素を格納
-  var $sortRows = null;
+  
+  // 一つ目の要素取得まで繰り返し
+  var $firstRow = null;
+  var count = 0;
   for (var i = 0; i < len; i++) {
+    count++;
     var rowId = sortArray[i];
     var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
 
-    this.$tbody.append($row);
+    if ($row.length) {
+      $firstRow = $row;
+      break;
+    }
+  }
+
+  for (var i = len - 1; i > count; i--) {
+    var rowId = sortArray[i];
+    var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
+
+    $firstRow.after($row);
   }
   console.timeEnd('sort table')
 }
