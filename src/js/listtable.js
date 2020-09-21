@@ -89,7 +89,8 @@ listtable.class.ListTable = function(id, settings) {
     // dataオブジェクトと行要素を紐付けるidをセット
     var id = 'r' + (i + 1);
     this.data[id] = {};
-    $row.attr('data-listtable-id', id);
+    $row.attr('id', 'listtable-id--' + id);
+    $row.data('listtable-id', id);
     // dataに各セルの情報セット
     var rowData = this.data[id];
     var $cellArr = $row.children('span');
@@ -182,7 +183,7 @@ listtable.class.ListTable.prototype.sortTable = function(sortArray) {
   for (var i = 0; i < len; i++) {
     count++;
     var rowId = sortArray[i];
-    var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
+    var $row = $('#listtable-id--' + rowId);
 
     if ($row.length) {
       $firstRow = $row;
@@ -190,9 +191,10 @@ listtable.class.ListTable.prototype.sortTable = function(sortArray) {
     }
   }
 
+  // 後ろの要素から最初の要素の後に追加していく
   for (var i = len - 1; i > count; i--) {
     var rowId = sortArray[i];
-    var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
+    var $row = $('#listtable-id--' + rowId);
 
     $firstRow.after($row);
   }
