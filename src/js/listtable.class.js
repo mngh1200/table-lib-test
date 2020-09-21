@@ -44,7 +44,7 @@ listtable.class.ListTable = function(id, settings) {
     // dataオブジェクトと行要素を紐付けるidをセット
     var id = 'r' + (i + 1);
     this.data[id] = {};
-    $row.data('listtable-id', id);
+    $row.attr('data-listtable-id', id);
     // dataに各セルの情報セット
     var rowData = this.data[id];
     var $cellArr = $row.children('.list-table__cell');
@@ -112,4 +112,28 @@ listtable.class.ListTable.prototype.sortObject = function(data, sortKeys) {
     return 0;
   });
   return sortdata;
+}
+
+
+/**
+ * ソート配列の内容をテーブルに反映する
+ * @param {Array} sortArray - 行idをソート順に並べた配列
+ */
+listtable.class.ListTable.prototype.sortTable = function(sortArray) {
+  var len = sortArray.length;
+
+  // ソートする順番にjquery要素を格納
+  var $sortRows = null;
+  for (var i = 0; i < len; i++) {
+    var rowId = sortArray[i];
+    var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
+
+    if ($sortRows == null) {
+      $sortRows = $row;
+    } else if($row.length) {
+      $sortRows.add($row);
+    }
+  }
+
+  this.$tbody.prepend($sortRows);
 }
