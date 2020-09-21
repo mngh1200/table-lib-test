@@ -26,7 +26,7 @@ listtable.class.ListTable = function(id, settings) {
   var rowLen = this.$tr.length; // 行数
 
   // 全般設定    settings = settings || {};
-  this.settings = $.extend(listtable.settings.DEF_SETTINGS, settings);
+  this.settings = $.extend(listtable.DEF_STATE.DEF_SETTINGS, settings);
   // 任意の列設定がない場合はタグ構造から生成
   if (this.settings.colSettings == null || Array.isArray(this.settings.colSettings)) {
     this.settings.colSettings = [];
