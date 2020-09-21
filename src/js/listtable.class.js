@@ -59,7 +59,6 @@ listtable.class.ListTable = function(id, settings) {
       }
     }
   }
-  this.originData = this.data;
 };
 /**
   * JSONデータメンバをソートする。
@@ -69,56 +68,48 @@ listtable.class.ListTable = function(id, settings) {
   * @param {Array} sortKeys - ソートのキー、並び順のオブジェクト配列
   * @return {Object} ソートされたdataメンバを返す
   */
-listtable.class.ListTable.prototype.sortData = function(rowKey, sortKeys) {
+listtable.class.ListTable.prototype.sortData = function(sortKeys) {
   var sortArray = [];  // ソート用配列
-  var keyArray = [];  // rowKeyと一致したキーの配列（rowKeyを削除して数値化したもの）
-  var otherKeyArray = []; // rowKeyと一致しなかったキーと値を格納する配列
-  // rowKeyチェック
-  if (rowKey == null) return this.originData;
-  if (rowKey == '') return this.originData;
-  if (typeof rowKey !== 'string') return this.originData;
-  // sortKeysのチェック
-  if(sortKeys == null) return this.originData;
-  if(typeof sortKeys !== 'object') return this.originData;
   // dataメンバのキーを取得
-  var keys = Object.keys(this.originData);
+  var keys = Object.keys(this.data);
   var keysLength = keys.length;
   // dataメンバのキーからソート対象と対象外を分ける
   for (var i = 0; i < keysLength; i++){
     var key = keys[i];
-    // ソート対象ならキー配列とソート配列に格納
-    if (key.indexOf(rowKey) == 0) {
-      keyArray.push( Number( key.replace(rowKey, '') ) );
-      sortArray.push(this.originData[key]);
-    // ソート対象外なら対象外の配列に格納
-    }else {
-      otherKeyArray.push({key: key, value: this.originData[key]});
-    }
+    // ソート配列に格納
+    sortArray.push(this.data[key]);
   }
-  // ソート対象が1つもなければソートせず終了
-  var keyArrayLength = keyArray.length;
-  if (keyArrayLength == 0) return this.originData;
-  // キー配列を数値昇順に並び替え
-  keyArray.sort(function(a,b){
-    if( a < b ) return -1;
-    if( a > b ) return 1;
+  // ソート配列をsortKeysでソート
+  sortArray = listtable.class.ListTable.prototype.sortObject(sortArray, sortKeys);
+  return sortArray;
+};
+
+/**
+ * Object型の配列をソートする<br/>
+ * sortKeysは次のように定義する<br/>
+ * [{keyname: 'column1', order:listtable.sort.ORDER_ASC}, {keyname: 'column2', order:listtable.sort.ORDER_DESC}]
+ * @param {Array} data - ソートを行うオブジェクト配列
+ * @param {Array} sortKeys - ソートのキー、並び順のオブジェクト配列
+ * @return {Array} ソートされたdataを返す
+ */
+listtable.class.ListTable.prototype.sortObject = function(data, sortKeys) {
+  if (sortKeys === null) return data;
+  if (typeof sortKeys !== 'object') return data;
+  var sortdata = data.concat();
+  sortdata.sort(function(a, b) {
+    var keylen = sortKeys.length;
+    for (var i = 0; i < keylen; i++) {
+      var sortkey = sortKeys[i];
+      if (!(('order' in sortkey) && ('keyname' in sortkey))) continue;
+      if (sortkey.order === listtable.sort.ORDER_ASC) {
+        if (a[sortkey.keyname] < b[sortkey.keyname]) return -1;
+        if (a[sortkey.keyname] > b[sortkey.keyname]) return 1;
+      } else if(sortkey.order === listtable.sort.ORDER_DESC) {
+        if (a[sortkey.keyname] > b[sortkey.keyname]) return -1;
+        if (a[sortkey.keyname] < b[sortkey.keyname]) return 1;
+      }
+    }
     return 0;
   });
-  // ソート配列をsortKeysでソート
-  sortArray = listtable.sort.sortObject(sortArray, sortKeys);
-  // ソートした配列を格納
-  var newData = {};
-  for (var i = 0; i < keyArrayLength; i++) {
-    newData[rowKey+keyArray[i]] = sortArray[i];
-  }
-  // ソート対象外のデータを追加
-  var otherKeyArrayLength = otherKeyArray.length;
-  for (var i = 0; i < otherKeyArrayLength; i++) {
-    var otherKey = otherKeyArray[i];
-    newData[otherKey.key] = otherKey.value;
-  }
-  // データを上書き
-  this.data = newData;
-  // データを返す
-  return this.data;
-};
+  return sortdata;
+}

@@ -42,7 +42,7 @@
 // listtable.table.set($('#test-list-table'));
 var listTable = new listtable.class.ListTable('test-list-table');
 //サンプルソート
-listTable.sortData('r', [{keyname: 'col1', order: listtable.sort.ORDER_DESC}]);
+var sortdata = listTable.sortData([{keyname: 'col1', order: listtable.sort.ORDER_DESC}]);
 </script>
   </body>
 </html>
