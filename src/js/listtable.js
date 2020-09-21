@@ -171,6 +171,7 @@ listtable.class.ListTable.prototype.sortObject = function(data, sortKeys) {
  * @param {Array} sortArray - 行idをソート順に並べた配列
  */
 listtable.class.ListTable.prototype.sortTable = function(sortArray) {
+  console.time('sort table');
   var len = sortArray.length;
 
   // ソートする順番にjquery要素を格納
@@ -179,12 +180,7 @@ listtable.class.ListTable.prototype.sortTable = function(sortArray) {
     var rowId = sortArray[i];
     var $row = this.$tr.filter('[data-listtable-id=' + rowId + ']');
 
-    if ($sortRows == null) {
-      $sortRows = $row;
-    } else if($row.length) {
-      var $sortRows = $sortRows.add($row);
-    }
+    this.$tbody.append($row);
   }
-
-  this.$tbody.prepend($sortRows);
+  console.timeEnd('sort table')
 }
