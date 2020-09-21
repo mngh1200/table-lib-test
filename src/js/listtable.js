@@ -192,11 +192,13 @@ listtable.class.ListTable.prototype.sortTable = function(sortArray) {
   }
 
   // 後ろの要素から最初の要素の後に追加していく
-  for (var i = len - 1; i > count; i--) {
+  var rows = [];
+  for (var i = count; i < len; i++) {
     var rowId = sortArray[i];
-    var $row = $('#listtable-id--' + rowId);
-
-    $firstRow.after($row);
+    rows.push($('#listtable-id--' + rowId));
   }
+
+  $firstRow.after(rows);
+
   console.timeEnd('sort table')
 }
