@@ -13,6 +13,7 @@
           <ul>
             <li>
               <script>
+                console.time('create Table');
                 var ROW_LEN = 2000; // 行数
                 var COL_LEN = 10;   // 列数
 
@@ -31,6 +32,7 @@
                   document.write('<span>データ' + i + '-' + j + '</span>');
                 }
               }
+              console.timeEnd('create Table');
             </script>
           </ul>
         </div>
@@ -42,10 +44,17 @@
 
 <script>
 // listtable.table.set($('#test-list-table'));
+console.time('constract ListTable');
 var listTable = new listtable.class.ListTable('test-list-table');
+console.timeEnd('constract ListTable');
 //サンプルソート
+console.time('get sort data');
 var sortdata = listTable.sortData([{keyname: 'col1', order: listtable.const.ORDER_DESC}]);
+console.timeEnd('get sort data');
+
+console.time('sort table');
 listTable.sortTable(sortdata);
+console.timeEnd('sort table');
 </script>
   </body>
 </html>
