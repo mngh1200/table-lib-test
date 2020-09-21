@@ -13,7 +13,10 @@
           <ul>
             <li>
               <script>
-                for (var i = 1; i <= 10; i++) {
+                var ROW_LEN = 2000; // 行数
+                var COL_LEN = 10;   // 列数
+
+                for (var i = 1; i <= COL_LEN; i++) {
                   document.writeln('<span>ヘッダー' + i + '</span>');
                 }
               </script>
@@ -22,9 +25,9 @@
           </ul>
           <ul>
             <script>
-              for (var i = 1; i <= 2000; i++) {
+              for (var i = 1; i <= ROW_LEN; i++) {
                 document.write('<li>');
-                for (var j = 1; j <= 10; j++) {
+                for (var j = 1; j <= COL_LEN; j++) {
                   document.write('<span>データ' + i + '-' + j + '</span>');
                 }
               }
@@ -43,6 +46,7 @@
 var listTable = new listtable.class.ListTable('test-list-table');
 //サンプルソート
 var sortdata = listTable.sortData([{keyname: 'col1', order: listtable.sort.ORDER_DESC}]);
+listTable.sortTable(sortdata);
 </script>
   </body>
 </html>
